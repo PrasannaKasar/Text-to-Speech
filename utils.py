@@ -3,7 +3,7 @@ import librosa
 import os, copy
 from scipy import signal
 import hyperparams as hp
-import torch as t
+import torch as torch    # t -> torch
 import numpy as np
 import librosa
 
@@ -105,7 +105,7 @@ def get_positional_table(d_pos_vec, n_position=1024):
 
     position_enc[1:, 0::2] = np.sin(position_enc[1:, 0::2]) # dim 2i
     position_enc[1:, 1::2] = np.cos(position_enc[1:, 1::2]) # dim 2i+1
-    return t.from_numpy(position_enc).type(t.FloatTensor)
+    return torch.from_numpy(position_enc).type(torch.FloatTensor)
 
 def get_sinusoid_encoding_table(n_position, d_hid, padding_idx=None):
     ''' Sinusoid position encoding table '''
@@ -125,7 +125,7 @@ def get_sinusoid_encoding_table(n_position, d_hid, padding_idx=None):
         # zero vector for padding dimension
         sinusoid_table[padding_idx] = 0.
 
-    return t.FloatTensor(sinusoid_table)
+    return torch.FloatTensor(sinusoid_table)
 
 def guided_attention(N, T, g=0.2):
     '''Guided attention. Refer to page 3 on the paper.'''
