@@ -31,6 +31,6 @@ batch_size = 32
 
 cleaners='english_cleaners'
 
-data_path = './data/LJSpeech-1.1'
+data_path = '/kaggle/input/the-lj-speech-dataset/LJSpeech-1.1'
 checkpoint_path = './checkpoint'
 sample_path = './samples'
