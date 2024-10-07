@@ -102,9 +102,9 @@ class EncoderPrenet(nn.Module):
     def forward(self, input_):
         input_ = self.embed(input_) 
         input_ = input_.transpose(1, 2) 
-        input_ = self.dropout1(t.relu(self.batch_norm1(self.conv1(input_)))) 
-        input_ = self.dropout2(t.relu(self.batch_norm2(self.conv2(input_)))) 
-        input_ = self.dropout3(t.relu(self.batch_norm3(self.conv3(input_)))) 
+        input_ = self.dropout1(torch.relu(self.batch_norm1(self.conv1(input_)))) 
+        input_ = self.dropout2(torch.relu(self.batch_norm2(self.conv2(input_)))) 
+        input_ = self.dropout3(torch.relu(self.batch_norm3(self.conv3(input_)))) 
         input_ = input_.transpose(1, 2) 
         input_ = self.projection(input_) 
 
@@ -129,7 +129,7 @@ class FFN(nn.Module):
     def forward(self, input_):
         # FFN Network
         x = input_.transpose(1, 2) 
-        x = self.w_2(t.relu(self.w_1(x))) 
+        x = self.w_2(torch.relu(self.w_1(x))) 
         x = x.transpose(1, 2) 
 
 
@@ -178,9 +178,9 @@ class PostConvNet(nn.Module):
 
     def forward(self, input_, mask=None):
         # Causal Convolution (for auto-regressive)
-        input_ = self.dropout1(t.tanh(self.pre_batchnorm(self.conv1(input_)[:, :, :-4])))
+        input_ = self.dropout1(torch.tanh(self.pre_batchnorm(self.conv1(input_)[:, :, :-4])))
         for batch_norm, conv, dropout in zip(self.batch_norm_list, self.conv_list, self.dropout_list):
-            input_ = dropout(t.tanh(batch_norm(conv(input_)[:, :, :-4])))
+            input_ = dropout(torch.tanh(batch_norm(conv(input_)[:, :, :-4])))
         input_ = self.conv2(input_)[:, :, :-4]
         return input_
 
@@ -200,15 +200,15 @@ class MultiheadAttention(nn.Module):
 
     def forward(self, key, value, query, mask=None, query_mask=None):
         # Get attention score
-        attn = t.bmm(query, key.transpose(1, 2))
+        attn = torch.bmm(query, key.transpose(1, 2))
         attn = attn / math.sqrt(self.num_hidden_k)
 
         # Masking to ignore padding (key side)
         if mask is not None:
             attn = attn.masked_fill(mask, -2 ** 32 + 1)
-            attn = t.softmax(attn, dim=-1)
+            attn = torch.softmax(attn, dim=-1)
         else:
-            attn = t.softmax(attn, dim=-1)
+            attn = torch.softmax(attn, dim=-1)
 
         # Masking to ignore padding (query side)
         if query_mask is not None:
@@ -218,7 +218,7 @@ class MultiheadAttention(nn.Module):
         # attn = self.attn_dropout(attn)
         
         # Get Context Vector
-        result = t.bmm(attn, value)
+        result = torch.bmm(attn, value)
 
         return result, attn
 
@@ -280,7 +280,7 @@ class Attention(nn.Module):
         result = result.permute(1, 2, 0, 3).contiguous().view(batch_size, seq_q, -1)
         
         # Concatenate context vector with input (most important)
-        result = t.cat([decoder_input, result], dim=-1)
+        result = torch.cat([decoder_input, result], dim=-1)
         
         # Final linear
         result = self.final_linear(result)
@@ -396,17 +396,17 @@ class CBHG(nn.Module):
 
         # Convolution bank filters
         for k, (conv, batchnorm) in enumerate(zip(self.convbank_list, self.batchnorm_list)):
-            convbank_input = t.relu(batchnorm(self._conv_fit_dim(conv(convbank_input), k+1).contiguous()))
+            convbank_input = torch.relu(batchnorm(self._conv_fit_dim(conv(convbank_input), k+1).contiguous()))
             convbank_list.append(convbank_input)
 
         # Concatenate all features
-        conv_cat = t.cat(convbank_list, dim=1)
+        conv_cat = torch.cat(convbank_list, dim=1)
 
         # Max pooling
         conv_cat = self.max_pool(conv_cat)[:,:,:-1]
 
         # Projection
-        conv_projection = t.relu(self.batchnorm_proj_1(self._conv_fit_dim(self.conv_projection_1(conv_cat))))
+        conv_projection = torch.relu(self.batchnorm_proj_1(self._conv_fit_dim(self.conv_projection_1(conv_cat))))
         conv_projection = self.batchnorm_proj_2(self._conv_fit_dim(self.conv_projection_2(conv_projection))) + input_
 
         # Highway networks
@@ -446,8 +446,8 @@ class Highwaynet(nn.Module):
         # highway gated function
         for fc1, fc2 in zip(self.linears, self.gates):
 
-            h = t.relu(fc1.forward(out))
-            t_ = t.sigmoid(fc2.forward(out))
+            h = torch.relu(fc1.forward(out))
+            t_ = torch.sigmoid(fc2.forward(out))
 
             c = 1. - t_
             out = h * t_ + out * c
