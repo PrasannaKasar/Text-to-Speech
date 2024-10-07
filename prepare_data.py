@@ -27,8 +27,8 @@ class PrepareDataset(Dataset):
         mel, mag = get_spectrograms(wav_name)
         
         # Change output path to use hp.output_path_used_for_prepare_data
-        np.save(os.path.join(hp.output_path_used_for_prepare_data, wav_name[:-4] + '.pt'), mel)
-        np.save(os.path.join(hp.output_path_used_for_prepare_data, wav_name[:-4] + '.mag'), mag)
+        np.save(os.path.join(hp.output_path_used_for_prepare_data, os.path.basename(wav_name[:-4] + '.pt')), mel)
+        np.save(os.path.join(hp.output_path_used_for_prepare_data, os.path.basename(wav_name[:-4] + '.mag')), mag)
 
         sample = {'mel':mel, 'mag': mag}
 
