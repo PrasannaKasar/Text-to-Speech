@@ -36,7 +36,7 @@ class PrepareDataset(Dataset):
     
 if __name__ == '__main__':
     dataset = PrepareDataset(os.path.join(hp.data_path_used_for_prepare_data,'metadata.csv'), os.path.join(hp.data_path_used_for_prepare_data,'wavs'))
-    dataloader = DataLoader(dataset, batch_size=1, drop_last=False, num_workers=4)
+    dataloader = DataLoader(dataset, batch_size=1, drop_last=False, num_workers=4)   # num_workers = 8 -> 4 for smooth execution of preparing data script
     from tqdm import tqdm
     pbar = tqdm(dataloader)
     for d in pbar:
