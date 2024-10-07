@@ -1,5 +1,5 @@
 import torch.nn as nn
-import torch as t
+import torch as torch   # t -> torch
 import torch.nn.functional as F
 import math
 import hyperparams as hp
