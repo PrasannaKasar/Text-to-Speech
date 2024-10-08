@@ -32,7 +32,7 @@ batch_size = 32
 cleaners='english_cleaners'
 
 # General:
-data_path = '/kaggle/input/ljspeech-1-1-with-mel-and-mag-of-each-audio')'
+data_path = '/kaggle/input/ljspeech-1-1-with-mel-and-mag-of-each-audio'
 checkpoint_path = './checkpoint'
 sample_path = './samples'
 
