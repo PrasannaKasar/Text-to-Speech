@@ -20,9 +20,9 @@ def main():
     m = nn.DataParallel(Model().to(device))
 
     m.train()
-    optimizer = t.optim.Adam(m.parameters(), lr=hp.lr)
+    optimizer = torch.optim.Adam(m.parameters(), lr=hp.lr)
 
-    pos_weight = t.FloatTensor([5.]).to(device)
+    pos_weight = torch.FloatTensor([5.]).to(device)
     writer = SummaryWriter()
     
     for epoch in range(hp.epochs):
@@ -37,7 +37,7 @@ def main():
                 
             character, mel, mel_input, pos_text, pos_mel, _ = data
             
-            stop_tokens = t.abs(pos_mel.ne(0).type(t.float) - 1)
+            stop_tokens = torch.abs(pos_mel.ne(0).type(torch.float) - 1)
             
             character = character.to(device)
             mel = mel.to(device)
@@ -100,7 +100,7 @@ def main():
             optimizer.step()
 
             if global_step % hp.save_step == 0:
-                t.save({'model':m.state_dict(),
+                torch.save({'model':m.state_dict(),
                                  'optimizer':optimizer.state_dict()},
                                 os.path.join(hp.checkpoint_path,'checkpoint_transformer_%d.pth.tar' % global_step))
 
