@@ -23,7 +23,7 @@ n_iter = 60
 # power = 1.5
 outputs_per_step = 1
 
-epochs = 10000
+epochs = 200
 lr = 0.001
 save_step = 2000
 image_step = 500
