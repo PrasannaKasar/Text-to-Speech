@@ -37,5 +37,5 @@ checkpoint_path = './checkpoint'
 sample_path = './samples'
 
 # For use:
-data_path_used_for_prepare_data = '/kaggle/input/the-lj-speech-dataset/LJSpeech-1.1'
+data_path_used_for_prepare_data = '/kaggle/input/ljspeech-1-1-with-mel-and-mag-of-each-audio'
 output_path_used_for_prepare_data = '/kaggle/working/'
