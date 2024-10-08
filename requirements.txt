@@ -1,4 +1,4 @@
-# Packages required:
+# Packages required: Python==3.11.10
 torch
 falcon
 inflect
