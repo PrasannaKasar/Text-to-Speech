@@ -1,0 +1,11 @@
+# Packages required:
+torch
+falcon
+inflect
+librosa
+scipy
+Unidecode
+pandas
+numpy
+tensorboardX
+tqdm
