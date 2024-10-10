@@ -9,12 +9,12 @@ class Encoder(nn.Module):
     """
     def __init__(self, embedding_size, num_hidden):
         """
-        :parameters embedding_size: dimension of embedding
-        :parameters num_hidden: dimensions of hidden
+        :Parameter embedding_size: dimension of embedding
+        :Parameter num_hidden: dimensions of hidden
         
         """
         super(Encoder, self).__init__()
-        self.alpha = nn.Parameters(torch.ones(1))
+        self.alpha = nn.Parameter(torch.ones(1))
         self.positional_embedding = nn.Embedding.from_pretrained(get_sinusoid_encoding_table(1024, num_hidden, padding_idx=0),
                                                                  freeze=True)
         self.positional_dropout = nn.Dropout(p=0.1)
@@ -57,7 +57,7 @@ class MelDecoder(nn.Module):
     """
     def __init__(self, num_hidden):
         """
-        :parameters num_hidden: dimension of hidden
+        :Parameter num_hidden: dimension of hidden
         """
         super(MelDecoder, self).__init__()
         self.positional_embedding = nn.Embedding.from_pretrained(get_sinusoid_encoding_table(1024, num_hidden, padding_idx=0),
@@ -83,7 +83,7 @@ def forward(self, memory, decoder_input, character_mask, pos):
     if self.training:
         m_mask = pos.ne(0).type(torch.float)
         mask = m_mask.eq(0).unsqueeze(1).repeat(1, decoder_len, 1)
-        if next(self.parameters()).is_cuda:
+        if next(self.Parameter()).is_cuda:
             mask = mask + torch.triu(torch.ones(decoder_len, decoder_len).cuda(), diagonal=1).repeat(batch_size, 1, 1).byte()
         else:
             mask = mask + torch.triu(torch.ones(decoder_len, decoder_len), diagonal=1).repeat(batch_size, 1, 1).byte()
@@ -92,7 +92,7 @@ def forward(self, memory, decoder_input, character_mask, pos):
         zero_mask = character_mask.eq(0).unsqueeze(-1).repeat(1, 1, decoder_len)
         zero_mask = zero_mask.transpose(1, 2)
     else:
-        if next(self.parameters()).is_cuda:
+        if next(self.Parameter()).is_cuda:
             mask = torch.triu(torch.ones(decoder_len, decoder_len).cuda(), diagonal=1).repeat(batch_size, 1, 1).byte()
         else:
             mask = torch.triu(torch.ones(decoder_len, decoder_len), diagonal=1).repeat(batch_size, 1, 1).byte()
