@@ -45,4 +45,4 @@ sample_path = './samples'
 
 # For local use: (prepare_data.ipynb)
 data_path_used_for_prepare_data = 'C:\\Users\\admin\\Desktop\\LJSpeech-1.1'
-output_path_used_for_prepare_data = '"C:\\Users\\admin\\Desktop\\mel_mag"'
+output_path_used_for_prepare_data = 'C:\\Users\\admin\\Desktop\\mel_mag'
