@@ -29,8 +29,8 @@ class LJDatasets(Dataset):
         return len(self.audio_annotations)
     
     def __getitem__(self, index):
-        wav_name = os.path.join(self.root_dir, self.audio_annotations.ix[index, 0]) + '.wav'   # .ix[row, column]
-        text = self.audio_annotations.ix[index, 1]    # .ix[row, column]
+        wav_name = os.path.join(self.root_dir, self.audio_annotations.iloc[index, 0]) + '.wav'   # .iloc[row, column]
+        text = self.audio_annotations.iloc[index, 1]    # .iloc[row, column]
         
         text = np.asarray(text_to_sequence(text, [hp.cleaners]), dtype=np.int32)
         melspectrogram_data = np.load(wav_name[:-4] + '.pt.npy')   # audio_01.wav -> audio_01.pt.npy
@@ -76,7 +76,7 @@ class PostDatasets(Dataset):
             return len(self.audio_annotations)
         
         def __getitem__(self, index):
-            wav_name = os.path.join(self.root_dir, self.audio_annotations.ix[index, 0]) + '.wav'   # .ix[row, column]
+            wav_name = os.path.join(self.root_dir, self.audio_annotations.iloc[index, 0]) + '.wav'   # .iloc[row, column]
             melspectrogram_data = np.load(wav_name[:-4] + '.pt.npy')    # audio_01.wav -> audio_01.pt.npy
             magnitude_of_melspectrogram = np.load(wav_name[:-4] + '.mag.npy')   # audio_01.wav -> audio_01.mag.npy
             sample = {'melspectrogram_data': melspectrogram_data, 'magnitude_of_melspectrogram': magnitude_of_melspectrogram}
