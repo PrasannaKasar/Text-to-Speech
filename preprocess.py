@@ -54,7 +54,7 @@ class LJDatasets(Dataset):
         position_of_text = np.arange(1, text_length + 1) #position_of_text=[1,2,...,text_length(int)]
         position_of_mel = np.arange(1, melspectrogram_data.shape[0] + 1) #position_of_mel=[1,2,...,no. of timestep] mel.shape[0]=num of time steps
         
-        sample = {'text': text, 'mel': melspectrogram_data, 'text_length': text_length, 'mel_input': mel_input, 'position_of_mel': position_of_mel, 'position_of_text': position_of_text }
+        sample = {'text': text, 'melspectrogram_data': melspectrogram_data, 'text_length': text_length, 'mel_input': mel_input, 'position_of_mel': position_of_mel, 'position_of_text': position_of_text }
         
         return sample
 
