@@ -36,6 +36,13 @@ data_path = '/kaggle/input/ljspeech-1-1-with-mel-and-mag-of-each-audio'
 checkpoint_path = './checkpoint'
 sample_path = './samples'
 
-# For use:
-data_path_used_for_prepare_data = '/kaggle/input/the-lj-speech-dataset/LJSpeech-1.1'
-output_path_used_for_prepare_data = '/kaggle/working/'
+# For kaggle use:
+"""
+    data_path_used_for_prepare_data = '/kaggle/input/the-lj-speech-dataset/LJSpeech-1.1'
+    output_path_used_for_prepare_data = '/kaggle/working/'
+    
+"""
+
+# For local use: (prepare_data.ipynb)
+data_path_used_for_prepare_data = 'C:\\Users\\admin\\Desktop\\LJSpeech-1.1'
+output_path_used_for_prepare_data = '"C:\\Users\\admin\\Desktop\\mel_mag"'
