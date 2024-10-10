@@ -23,9 +23,9 @@ n_iter = 60
 # power = 1.5
 outputs_per_step = 1
 
-epochs = 200
+epochs = 300
 lr = 0.001
-save_step = 2000
+save_step = 10000
 image_step = 500
 batch_size = 32
 
@@ -33,7 +33,7 @@ cleaners='english_cleaners'
 
 # General:
 data_path = '/kaggle/input/ljspeech-1-1-with-mel-and-mag-of-each-audio'
-checkpoint_path = './checkpoint'
+checkpoint_path = '/kaggle/working'
 sample_path = './samples'
 
 # For kaggle use:
