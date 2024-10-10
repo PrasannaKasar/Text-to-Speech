@@ -29,9 +29,10 @@ class PrepareDataset(Dataset):
         # Construct proper paths for saving
         mel_save_path = os.path.join(hp.output_path_used_for_prepare_data, os.path.basename(wav_name[:-4] + '.pt'))
         mag_save_path = os.path.join(hp.output_path_used_for_prepare_data, os.path.basename(wav_name[:-4] + '.mag'))
-        
-        # Ensure the directory exists
-        os.makedirs(hp.output_path_used_for_prepare_data, exist_ok=True)
+
+        # Ensure that there are no extra quotes in the paths
+        mel_save_path = mel_save_path.replace('"', '')
+        mag_save_path = mag_save_path.replace('"', '')
         
         # Save the files
         np.save(mel_save_path, mel)
