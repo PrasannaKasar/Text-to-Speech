@@ -86,7 +86,7 @@ class PostDatasets(Dataset):
 def collate_fn_transformer(batch):
 
     # Puts each data field into a tensor with outer dimension batch size
-    if isinstance(batch[0], collections.Mapping):
+    if isinstance(batch[0], collections.abc.Mapping):
         
         # Extracting data required from batches of dictionaries:
         text = [d['text'] for d in batch]
@@ -120,7 +120,7 @@ def collate_fn_transformer(batch):
 def collate_fn_postnet(batch):
     
     # Puts each data field into a tensor with outer dimension batch size
-    if isinstance(batch[0], collections.Mapping):
+    if isinstance(batch[0], collections.abc.Mapping):
         
         # Extracting data required from batches of dictionaries:
         melspectrogram_data = [d['melspectrogram_data'] for d in batch]
