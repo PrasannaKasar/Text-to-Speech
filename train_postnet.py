@@ -61,3 +61,8 @@ def main():
                 torch.save({'model' : model_postnet.state_dict(),
                              'optimizer' : optimizer.state_dict()},
                             os.path.join(hp.checkpoint_path, 'checkpoint_postnet_%d.pth.tar' % global_step))
+                
+
+
+if __name__ == '__main__' : 
+    main()
