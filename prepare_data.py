@@ -26,9 +26,16 @@ class PrepareDataset(Dataset):
         wav_name = os.path.join(self.root_dir, self.landmarks_frame.iloc[idx, 0]) + '.wav'
         mel, mag = get_spectrograms(wav_name)
         
-        # Change output path to use hp.output_path_used_for_prepare_data
-        np.save(os.path.join(hp.output_path_used_for_prepare_data, os.path.basename(wav_name[:-4] + '.pt')), mel)
-        np.save(os.path.join(hp.output_path_used_for_prepare_data, os.path.basename(wav_name[:-4] + '.mag')), mag)
+        # Construct proper paths for saving
+        mel_save_path = os.path.join(hp.output_path_used_for_prepare_data, os.path.basename(wav_name[:-4] + '.pt'))
+        mag_save_path = os.path.join(hp.output_path_used_for_prepare_data, os.path.basename(wav_name[:-4] + '.mag'))
+        
+        # Ensure the directory exists
+        os.makedirs(hp.output_path_used_for_prepare_data, exist_ok=True)
+        
+        # Save the files
+        np.save(mel_save_path, mel)
+        np.save(mag_save_path, mag)
 
         sample = {'mel':mel, 'mag': mag}
 
@@ -36,7 +43,7 @@ class PrepareDataset(Dataset):
     
 if __name__ == '__main__':
     dataset = PrepareDataset(os.path.join(hp.data_path_used_for_prepare_data,'metadata.csv'), os.path.join(hp.data_path_used_for_prepare_data,'wavs'))
-    dataloader = DataLoader(dataset, batch_size=1, drop_last=False, num_workers=4)   # num_workers = 8 -> 4 for smooth execution of preparing data script
+    dataloader = DataLoader(dataset, batch_size=1, drop_last=False, num_workers=0)   # num_workers = 8 -> 4 for smooth execution of preparing data script
     from tqdm import tqdm
     pbar = tqdm(dataloader)
     for d in pbar:
