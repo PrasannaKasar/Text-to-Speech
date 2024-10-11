@@ -9,8 +9,8 @@ class Encoder(nn.Module):
     """
     def __init__(self, embedding_size, num_hidden):
         """
-        :Parameter embedding_size: dimension of embedding
-        :Parameter num_hidden: dimensions of hidden
+        :Parameters embedding_size: dimension of embedding
+        :Parameters num_hidden: dimensions of hidden
         
         """
         super(Encoder, self).__init__()
@@ -57,7 +57,7 @@ class MelDecoder(nn.Module):
     """
     def __init__(self, num_hidden):
         """
-        :Parameter num_hidden: dimension of hidden
+        :Parameters num_hidden: dimension of hidden
         """
         super(MelDecoder, self).__init__()
         self.positional_embedding = nn.Embedding.from_pretrained(get_sinusoid_encoding_table(1024, num_hidden, padding_idx=0),
