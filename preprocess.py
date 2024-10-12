@@ -135,13 +135,15 @@ def collate_fn_postnet(batch):
     raise TypeError(("batch must contain tensors, numbers, dicts or lists; found {}"
                      .format(type(batch[0]))))  #raises an error with the wrong type shown/printed
         
-def _pad_data(x, length):
+def _pad_data(x, max_len):
     _pad = 0
-    return np.pad(x, (0, length - x.shape[0]), mode='constant', constant_values=_pad)
-
-    # x = [1,2,3]
-    # padded_x = _pad_data(x,5)
-    # padded_x = [1,2,3,0,0]
+    # If x is 1D (e.g., text data), pad along the time dimension
+    if len(x.shape) == 1:
+        return np.pad(x, (0, max_len - x.shape[0]), mode='constant', constant_values=_pad)
+    
+    # If x is 2D (e.g., mel spectrogram data), pad along the time dimension
+    elif len(x.shape) == 2:
+        return np.pad(x, [[0, max_len - x.shape[0]], [0, 0]], mode='constant', constant_values=_pad)
     
 def _prepare_data(inputs):
     max_len = max((len(x) for x in inputs))
