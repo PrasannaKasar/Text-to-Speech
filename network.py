@@ -83,7 +83,7 @@ class MelDecoder(nn.Module):
         if self.training:
             m_mask = pos.ne(0).type(torch.float)
             mask = m_mask.eq(0).unsqueeze(1).repeat(1, decoder_len, 1)
-            if next(self.Parameter()).is_cuda:
+            if next(self.parameters()).is_cuda:
                 mask = mask + torch.triu(torch.ones(decoder_len, decoder_len).cuda(), diagonal=1).repeat(batch_size, 1, 1).byte()
             else:
                 mask = mask + torch.triu(torch.ones(decoder_len, decoder_len), diagonal=1).repeat(batch_size, 1, 1).byte()
@@ -92,7 +92,7 @@ class MelDecoder(nn.Module):
             zero_mask = character_mask.eq(0).unsqueeze(-1).repeat(1, 1, decoder_len)
             zero_mask = zero_mask.transpose(1, 2)
         else:
-            if next(self.Parameter()).is_cuda:
+            if next(self.parameters()).is_cuda:
                 mask = torch.triu(torch.ones(decoder_len, decoder_len).cuda(), diagonal=1).repeat(batch_size, 1, 1).byte()
             else:
                 mask = torch.triu(torch.ones(decoder_len, decoder_len), diagonal=1).repeat(batch_size, 1, 1).byte()
