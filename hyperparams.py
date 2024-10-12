@@ -23,9 +23,9 @@ n_iter = 60
 # power = 1.5
 outputs_per_step = 1
 
-epochs = 400
+epochs = 350
 lr = 0.001
-save_step = 2000
+save_step = 5000
 image_step = 500
 batch_size = 32
 
