@@ -72,16 +72,16 @@ class PostDatasets(Dataset):
         self.audio_annotations = pd.read_csv(csv_file, sep='|', header=None)
         self.root_dir = root_dir
         
-        def __len__(self):
-            return len(self.audio_annotations)
+    def __len__(self):
+        return len(self.audio_annotations)
         
-        def __getitem__(self, index):
-            wav_name = os.path.join(self.root_dir, self.audio_annotations.iloc[index, 0]) + '.wav'   # .iloc[row, column]
-            melspectrogram_data = np.load(wav_name[:-4] + '.pt.npy')    # audio_01.wav -> audio_01.pt.npy
-            magnitude_of_melspectrogram = np.load(wav_name[:-4] + '.mag.npy')   # audio_01.wav -> audio_01.mag.npy
-            sample = {'melspectrogram_data': melspectrogram_data, 'magnitude_of_melspectrogram': magnitude_of_melspectrogram}
+    def __getitem__(self, index):
+        wav_name = os.path.join(self.root_dir, self.audio_annotations.iloc[index, 0]) + '.wav'   # .iloc[row, column]
+        melspectrogram_data = np.load(wav_name[:-4] + '.pt.npy')    # audio_01.wav -> audio_01.pt.npy
+        magnitude_of_melspectrogram = np.load(wav_name[:-4] + '.mag.npy')   # audio_01.wav -> audio_01.mag.npy
+        sample = {'melspectrogram_data': melspectrogram_data, 'magnitude_of_melspectrogram': magnitude_of_melspectrogram}
             
-            return sample
+        return sample
 
 def collate_fn_transformer(batch):
 
