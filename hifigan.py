@@ -23,8 +23,8 @@ def load_checkpoint(checkpoint_path):
     return new_state_dict
 
 def synthesis(text, args):
-    MODEL = Model()
-    MODEL_post = ModelPostNet()
+    MODEL = Model().cuda()
+    MODEL_post = ModelPostNet().cuda()
 
     # Load checkpoints using the paths provided via command line arguments
     MODEL.load_state_dict(load_checkpoint(args.transformer_checkpoint))
