@@ -62,7 +62,7 @@ def convert_to_mel_spectrogram(mag_pred):
     sample_rate = 22050
 
     # Adjust n_fft based on input length, ensuring it's large enough
-    n_fft = 1024  # Use a fixed value that works for your data
+    n_fft = 400  # Use a fixed value that works for your data
     mel_transform = torchaudio.transforms.MelSpectrogram(
         sample_rate=sample_rate,
         n_mels=n_mel_channels,
