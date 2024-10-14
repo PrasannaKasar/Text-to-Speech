@@ -96,7 +96,11 @@ def invert_spectrogram(spectrogram):
     Args:
       spectrogram: [1+n_fft//2, t]
     '''
-    return librosa.istft(spectrogram, hp.hop_length, win_length=hp.win_length, window="hann")
+    # You might need to create a phase array here if it's not part of your input
+    # Assuming phase is zero initially (for simplicity), you could use a random phase.
+    phase = np.exp(1j * np.zeros_like(spectrogram))  # Initialize phase to zeros
+    complex_spec = spectrogram * phase  # Reconstruct the complex STFT
+    return librosa.istft(complex_spec, hp.hop_length, win_length=hp.win_length, window="hann")
 
 def get_positional_table(d_pos_vec, n_position=1024):
     position_enc = np.array([
