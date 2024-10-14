@@ -178,6 +178,7 @@ class PostConvNet(nn.Module):
 
     def forward(self, input_, mask=None):
         # Causal Convolution (for auto-regressive)
+        print(input_.shape)
         input_ = self.dropout1(torch.tanh(self.pre_batchnorm(self.conv1(input_)[:, :, :-4])))
         for batch_norm, conv, dropout in zip(self.batch_norm_list, self.conv_list, self.dropout_list):
             input_ = dropout(torch.tanh(batch_norm(conv(input_)[:, :, :-4])))
