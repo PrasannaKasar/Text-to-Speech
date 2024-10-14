@@ -61,7 +61,7 @@ if __name__ == '__main__':
     parser.add_argument('--transformer_checkpoint', type=str, help='Path to the transformer checkpoint file', required=True)
     parser.add_argument('--postnet_checkpoint', type=str, help='Path to the postnet checkpoint file', required=True)
     parser.add_argument('--max_len', type=int, help='Maximum length of the generated mel-spectrogram', default=400)
-    parser.add_argument('--text', type=str, help='Text input to synthesize into speech', required=True)  # New argument for text input
+    parser.add_argument('--text', type=str, help='hello good morning', required=True)  # New argument for text input
     
     args = parser.parse_args()
     
