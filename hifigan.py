@@ -61,7 +61,11 @@ def generate_audio_with_hifigan(mag_pred):
     hifi_gan = HIFIGAN.from_hparams(source="speechbrain/tts-hifigan-ljspeech", savedir="pretrained_models/tts-hifigan-ljspeech")
 
     # Convert magnitude spectrogram to the required input format for HiFi-GAN
-    mel = torch.tensor(mag_pred).unsqueeze(0).float().cuda()  # Add batch dimension and push to GPU
+    mel = mag_pred.clone().detach().unsqueeze(0).float().cuda()  # Add batch dimension and push to GPU
+
+    # Ensure the tensor is 2D (if HiFi-GAN requires this, reshape accordingly)
+    if mel.dim() == 3:
+        mel = mel.squeeze(1)  # Remove the singleton dimension if it's 3D
 
     # Generate audio
     with torch.no_grad():
