@@ -65,8 +65,8 @@ def convert_to_mel_spectrogram(mag_pred):
     mel_transform = torchaudio.transforms.MelSpectrogram(
         sample_rate=sample_rate,
         n_mels=n_mel_channels,
-        n_fft=1024,  # Adjust if necessary based on your use case
-        hop_length=256,  # Adjust if necessary based on your use case
+        n_fft=1024,  # Keep this, but ensure it matches your input signal length
+        hop_length=256,  # Adjust this if necessary
         power=1.0  # Set to 1.0 to get linear amplitude, 2.0 for power
     )
 
@@ -74,8 +74,14 @@ def convert_to_mel_spectrogram(mag_pred):
     mel_transform.to(mag_pred.device)
 
     # Convert magnitude to mel spectrogram
-    # Note: Transpose mag_pred to match expected dimensions for mel conversion
-    mag_pred = mag_pred.squeeze(0).transpose(0, 1)  # Shape becomes [1025, 400] -> [400, 1025]
+    mag_pred = mag_pred.squeeze(0)  # Remove batch dimension
+    mag_pred = mag_pred.permute(1, 0)  # Change shape to [1025, 400]
+
+    # Check if the input length is appropriate
+    if mag_pred.shape[1] < mel_transform.n_fft:
+        raise ValueError(f"Input length ({mag_pred.shape[1]}) is less than n_fft ({mel_transform.n_fft}). Adjust input or n_fft.")
+
+    # Convert to mel spectrogram
     mel_spectrogram = mel_transform(mag_pred)
 
     return mel_spectrogram
