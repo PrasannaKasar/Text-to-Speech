@@ -61,23 +61,22 @@ def convert_to_mel_spectrogram(mag_pred):
     n_mel_channels = 80
     sample_rate = 22050
 
-    # Create a MelSpectrogram transformation
-    n_fft = min(1024, mag_pred.shape[1])  # Adjust n_fft based on input
+    # Adjust n_fft based on input length, ensuring it's large enough
+    n_fft = 1024  # Use a fixed value that works for your data
     mel_transform = torchaudio.transforms.MelSpectrogram(
         sample_rate=sample_rate,
         n_mels=n_mel_channels,
         n_fft=n_fft,
         hop_length=256,
         power=1.0
-    )
+    ).to(mag_pred.device)
 
-    mel_transform.to(mag_pred.device)
+    mag_pred = mag_pred.squeeze(0)  # Ensure correct dimension
+    mag_pred = mag_pred.permute(1, 0)  # Shape: [length, 1] to [1, length]
 
-    mag_pred = mag_pred.squeeze(0)
-    mag_pred = mag_pred.permute(1, 0)
-
-    if mag_pred.shape[1] < mel_transform.n_fft:
-        raise ValueError(f"Input length ({mag_pred.shape[1]}) is less than n_fft ({mel_transform.n_fft}). Adjust input or n_fft.")
+    # Ensure that mag_pred has sufficient length
+    if mag_pred.shape[1] < n_fft:
+        raise ValueError(f"Input length ({mag_pred.shape[1]}) is less than n_fft ({n_fft}). Adjust input or n_fft.")
 
     mel_spectrogram = mel_transform(mag_pred)
     return mel_spectrogram
@@ -92,12 +91,12 @@ def generate_audio_with_hifigan(mag_pred):
     # Ensure the mel spectrogram has the right shape
     if mel.dim() == 3:  # Expected shape [1, n_mel_channels, n_frames]
         mel = mel.squeeze(0)  # Shape becomes [n_mel_channels, n_frames]
-    else:
+    elif mel.dim() != 2:
         raise ValueError("Input mel spectrogram has an unexpected number of dimensions: {}".format(mel.dim()))
 
     # Generate audio
     with torch.no_grad():
-        generated_audio = hifi_gan.decode_batch(mel.unsqueeze(0).to(mel.device)).squeeze(1).cpu().numpy()  # Ensure on correct device
+        generated_audio = hifi_gan.decode_batch(mel.unsqueeze(0)).squeeze(1).cpu().numpy()  # Ensure on correct device
 
     return generated_audio
 
