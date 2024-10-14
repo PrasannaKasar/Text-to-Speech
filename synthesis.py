@@ -23,7 +23,6 @@ def load_checkpoint(checkpoint_path):
 def synthesis(text, args):
     MODEL = Model()
     MODEL_post = ModelPostNet()
-    
     # Load checkpoints using the paths provided via command line arguments
     MODEL.load_state_dict(load_checkpoint(args.transformer_checkpoint))
     MODEL_post.load_state_dict(load_checkpoint(args.postnet_checkpoint))
@@ -35,8 +34,12 @@ def synthesis(text, args):
     pos_text = torch.arange(1, text.size(1) + 1).unsqueeze(0)
     pos_text = pos_text.cuda()  # pushed to gpu(cuda device)
     
+    
     MODEL = MODEL.cuda()  # pushed to gpu(cuda device)
     MODEL_post = MODEL_post.cuda()  # pushed to gpu(cuda device)
+    
+    MODEL.eval()
+    MODEL_post.eval()
     
     pbar = tqdm(range(args.max_len))  # for progress bar
     
