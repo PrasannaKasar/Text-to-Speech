@@ -10,4 +10,5 @@ numpy
 tensorboardX
 tqdm
 torchvision
-transformers
+torchaudio
+speechbrain
