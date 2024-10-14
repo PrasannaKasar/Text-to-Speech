@@ -70,15 +70,17 @@ def convert_to_mel_spectrogram(mag_pred):
         power=1.0  # Set to 1.0 to get linear amplitude, 2.0 for power
     )
 
+    # Move the transformation to the same device as the input
+    mel_transform.to(mag_pred.device)
+
     # Convert magnitude to mel spectrogram
     mel_spectrogram = mel_transform(mag_pred)
 
     return mel_spectrogram
 
-# Update the generate_audio_with_hifigan function
 def generate_audio_with_hifigan(mag_pred):
     # Load pre-trained HiFi-GAN model from SpeechBrain
-    hifi_gan = HIFIGAN.from_hparams(source="speechbrain/tts-hifigan-ljspeech", savedir="pretrained_models/tts-hifigan-ljspeech")
+    hifi_gan = HIFIGAN.from_hparams(source="speechbrain/tts-hifigan-ljspeech", savedir="pretrained_models/tts-hifigan-ljspeech").cuda()
 
     # Convert magnitude spectrogram to mel spectrogram
     mel = convert_to_mel_spectrogram(mag_pred)
@@ -91,7 +93,7 @@ def generate_audio_with_hifigan(mag_pred):
 
     # Generate audio
     with torch.no_grad():
-        generated_audio = hifi_gan.decode_batch(mel.unsqueeze(0)).squeeze(1).cpu().numpy()  # Add batch dimension if necessary
+        generated_audio = hifi_gan.decode_batch(mel.unsqueeze(0).to(mel.device)).squeeze(1).cpu().numpy()  # Ensure on correct device
 
     return generated_audio
 
