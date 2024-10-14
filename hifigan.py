@@ -50,9 +50,9 @@ def synthesis(text, args):
 
         mag_pred = MODEL_post.forward(postnet_pred)
 
+    print("Shape of mag_pred:", mag_pred.shape)  # Add this line for debugging
     # Generate waveform using HiFi-GAN
     wav = generate_audio_with_hifigan(mag_pred)
-
     # Write output WAV file
     write(hp.sample_path + "/test.wav", hp.sr, wav)
 
@@ -65,8 +65,14 @@ def generate_audio_with_hifigan(mag_pred):
 
     # Ensure the tensor is 2D (if HiFi-GAN requires this, reshape accordingly)
     if mel.dim() == 3:
-        mel = mel.squeeze(1)  # Remove the singleton dimension if it's 3D
-
+        # This assumes mel is in the shape [1, n_mel_channels, n_frames]
+        pass  # It's already in the correct shape
+    elif mel.dim() == 2:
+        # If it's 2D, we need to add a channel dimension
+        mel = mel.unsqueeze(0)  # Now it should be [1, n_mel_channels, n_frames]
+    else:
+        raise ValueError("Input mel spectrogram has an unexpected number of dimensions: {}".format(mel.dim()))
+    
     # Generate audio
     with torch.no_grad():
         generated_audio = hifi_gan.decode_batch(mel).squeeze(1).cpu().numpy()  # Convert to numpy array
