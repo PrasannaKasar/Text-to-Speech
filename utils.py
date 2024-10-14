@@ -96,7 +96,7 @@ def invert_spectrogram(spectrogram):
     Args:
       spectrogram: [1+n_fft//2, t]
     '''
-    return librosa.istft(spectrogram, hp.hop_length, win_length=hp.win_length, window="hann")
+    return librosa.istft(spectrogram, hop_length=hp.hop_length, win_length=hp.win_length, window="hann")
 
 def get_positional_table(d_pos_vec, n_position=1024):
     position_enc = np.array([
