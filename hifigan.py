@@ -74,6 +74,8 @@ def convert_to_mel_spectrogram(mag_pred):
     mel_transform.to(mag_pred.device)
 
     # Convert magnitude to mel spectrogram
+    # Note: Transpose mag_pred to match expected dimensions for mel conversion
+    mag_pred = mag_pred.squeeze(0).transpose(0, 1)  # Shape becomes [1025, 400] -> [400, 1025]
     mel_spectrogram = mel_transform(mag_pred)
 
     return mel_spectrogram
