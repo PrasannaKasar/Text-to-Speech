@@ -63,15 +63,20 @@ def generate_audio_with_hifigan(mag_pred):
     # Convert magnitude spectrogram to the required input format for HiFi-GAN
     mel = mag_pred.clone().detach().unsqueeze(0).float().cuda()  # Add batch dimension and push to GPU
 
-    # Ensure the tensor is 2D (if HiFi-GAN requires this, reshape accordingly)
-    if mel.dim() == 3:
+    print("Shape of mel before reshaping:", mel.shape)  # Debugging line
+
+    # Ensure the tensor is in the right shape for HiFi-GAN
+    if mel.dim() == 3:  # [1, 400, 1025]
         # This assumes mel is in the shape [1, n_mel_channels, n_frames]
-        pass  # It's already in the correct shape
-    elif mel.dim() == 2:
-        # If it's 2D, we need to add a channel dimension
-        mel = mel.unsqueeze(0)  # Now it should be [1, n_mel_channels, n_frames]
+        mel = mel.squeeze(0)  # Remove the batch dimension: shape becomes [400, 1025]
+    elif mel.dim() == 2:  # [400, 1025]
+        mel = mel.unsqueeze(0)  # Now it should be [1, 400, 1025]
+    elif mel.dim() == 4:  # This should not happen, but handling for safety
+        mel = mel.squeeze(1)  # Remove the unnecessary dimension: shape becomes [1, 400, 1025]
     else:
         raise ValueError("Input mel spectrogram has an unexpected number of dimensions: {}".format(mel.dim()))
+
+    print("Shape of mel after reshaping:", mel.shape)  # Debugging line
     
     # Generate audio
     with torch.no_grad():
