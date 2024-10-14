@@ -56,31 +56,42 @@ def synthesis(text, args):
     # Write output WAV file
     write(hp.sample_path + "/test.wav", hp.sr, wav)
 
+def convert_to_mel_spectrogram(mag_pred):
+    # Define the mel filter parameters
+    n_mel_channels = 80
+    sample_rate = 22050  # Use the sample rate for your audio
+
+    # Create a MelSpectrogram transformation
+    mel_transform = torchaudio.transforms.MelSpectrogram(
+        sample_rate=sample_rate,
+        n_mels=n_mel_channels,
+        n_fft=1024,  # Adjust if necessary based on your use case
+        hop_length=256,  # Adjust if necessary based on your use case
+        power=1.0  # Set to 1.0 to get linear amplitude, 2.0 for power
+    )
+
+    # Convert magnitude to mel spectrogram
+    mel_spectrogram = mel_transform(mag_pred)
+
+    return mel_spectrogram
+
+# Update the generate_audio_with_hifigan function
 def generate_audio_with_hifigan(mag_pred):
     # Load pre-trained HiFi-GAN model from SpeechBrain
     hifi_gan = HIFIGAN.from_hparams(source="speechbrain/tts-hifigan-ljspeech", savedir="pretrained_models/tts-hifigan-ljspeech")
 
-    # Convert magnitude spectrogram to the required input format for HiFi-GAN
-    mel = mag_pred.clone().detach().unsqueeze(0).float().cuda()  # Add batch dimension and push to GPU
+    # Convert magnitude spectrogram to mel spectrogram
+    mel = convert_to_mel_spectrogram(mag_pred)
 
-    print("Shape of mel before reshaping:", mel.shape)  # Debugging line
-
-    # Ensure the tensor is in the right shape for HiFi-GAN
-    if mel.dim() == 3:  # [1, 400, 1025]
-        # This assumes mel is in the shape [1, n_mel_channels, n_frames]
-        mel = mel.squeeze(0)  # Remove the batch dimension: shape becomes [400, 1025]
-    elif mel.dim() == 2:  # [400, 1025]
-        mel = mel.unsqueeze(0)  # Now it should be [1, 400, 1025]
-    elif mel.dim() == 4:  # This should not happen, but handling for safety
-        mel = mel.squeeze(1)  # Remove the unnecessary dimension: shape becomes [1, 400, 1025]
+    # Ensure the mel spectrogram has the right shape
+    if mel.dim() == 3:  # Expected shape [1, n_mel_channels, n_frames]
+        mel = mel.squeeze(0)  # Shape becomes [n_mel_channels, n_frames]
     else:
         raise ValueError("Input mel spectrogram has an unexpected number of dimensions: {}".format(mel.dim()))
 
-    print("Shape of mel after reshaping:", mel.shape)  # Debugging line
-    
     # Generate audio
     with torch.no_grad():
-        generated_audio = hifi_gan.decode_batch(mel).squeeze(1).cpu().numpy()  # Convert to numpy array
+        generated_audio = hifi_gan.decode_batch(mel.unsqueeze(0)).squeeze(1).cpu().numpy()  # Add batch dimension if necessary
 
     return generated_audio
 
