@@ -10,3 +10,4 @@ numpy
 tensorboardX
 tqdm
 torchvision
+transformers
