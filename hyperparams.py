@@ -34,7 +34,7 @@ cleaners='english_cleaners'
 # General:
 data_path = '/kaggle/input/mel-mag-prepared-data'
 checkpoint_path = '/kaggle/working'
-sample_path = './samples'
+sample_path = '/kaggle/working'
 
 # For kaggle use:
 """
