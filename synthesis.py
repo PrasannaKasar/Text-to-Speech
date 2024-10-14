@@ -9,40 +9,42 @@ from collections import OrderedDict
 from tqdm import tqdm
 import argparse
 
-def load_checkpoint(step, model_name="transformer"):
-    state_dict = torch.load('./checkpoint/checkpoint_%s_%d.pth.tar'% (model_name, step))
+# Updated function to take checkpoint_path as input
+def load_checkpoint(checkpoint_path):
+    state_dict = torch.load(checkpoint_path)
     new_state_dict = OrderedDict()
     
     for k, value in state_dict['model'].items():
-        key = k[7:]
+        key = k[7:]  # Remove the "module." prefix
         new_state_dict[key] = value
         
     return new_state_dict
 
 def synthesis(text, args):
     MODEL = Model()
-    MODEL_post = ModelPostNet
+    MODEL_post = ModelPostNet()
     
-    MODEL.load_state_dict(load_checkpoint(args.restore_step1, "transformer"))
-    MODEL_post.load_state_dict(load_checkpoint(args.restore_step2, "postnet"))
+    # Load checkpoints using the paths provided via command line arguments
+    MODEL.load_state_dict(load_checkpoint(args.transformer_checkpoint))
+    MODEL_post.load_state_dict(load_checkpoint(args.postnet_checkpoint))
     
     text = np.asarray(text_to_sequence(text, [hp.cleaners]))
     text = torch.LongTensor(text).unsqueeze(0)
     text = text.cuda()   # pushed to gpu(cuda device)
     mel_input = torch.zeros([1, 1, 80]).cuda()
-    pos_text = torch.arange(1, text.size(1)+1).unsqueeze(0)
-    pos_text = pos_text.cuda()  #pushed to gpu(cuda device)
+    pos_text = torch.arange(1, text.size(1) + 1).unsqueeze(0)
+    pos_text = pos_text.cuda()  # pushed to gpu(cuda device)
     
-    MODEL = MODEL.cuda()  #pushed to gpu(cuda device)
-    MODEL_post = MODEL_post.cuda()  #pushed to gpu(cuda device)
+    MODEL = MODEL.cuda()  # pushed to gpu(cuda device)
+    MODEL_post = MODEL_post.cuda()  # pushed to gpu(cuda device)
     
     pbar = tqdm(range(args.max_len))  # for progress bar
     
     with torch.no_grad():
         for i in pbar:
-            pos_mel = torch.arange(1, mel_input.size(1)+1).unsqueeze(0).cuda()
+            pos_mel = torch.arange(1, mel_input.size(1) + 1).unsqueeze(0).cuda()
             mel_pred, postnet_pred, attention, stop_token, _, attention_decoder = MODEL.forward(text, mel_input, pos_text, pos_mel)
-            mel_input = torch.cat([mel_input, mel_pred[:,-1:,:]], dim=1)
+            mel_input = torch.cat([mel_input, mel_pred[:, -1:, :]], dim=1)
             
         mag_pred = MODEL_post.forward(postnet_pred)
         
@@ -53,10 +55,12 @@ def synthesis(text, args):
 if __name__ == '__main__':
     
     parser = argparse.ArgumentParser()
-    parser.add_argument('--restore_step1', type=int, help='Global step to restore checkpoint', default=172000)
-    parser.add_argument('--restore_step2', type=int, help='Global step to restore checkpoint', default=100000)
-    parser.add_argument('--max_len', type=int, help='Global step to restore checkpoint', default=400)
+    parser.add_argument('--transformer_checkpoint', type=str, help='Path to the transformer checkpoint file', required=True)
+    parser.add_argument('--postnet_checkpoint', type=str, help='Path to the postnet checkpoint file', required=True)
+    parser.add_argument('--max_len', type=int, help='Maximum length of the generated mel-spectrogram', default=400)
+    parser.add_argument('--text', type=str, help='Text input to synthesize into speech', required=True)  # New argument for text input
     
-
     args = parser.parse_args()
-    synthesis("Transformer model is so fast!",args)
+    
+    # Call synthesis function with text from user input
+    synthesis(args.text, args)
