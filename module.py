@@ -227,7 +227,7 @@ class Attention(nn.Module):
     """
     Attention Network
     """
-    def __init__(self, num_hidden, h=4):
+    def __init__(self, num_hidden, h=2):
         """
         :param num_hidden: dimension of hidden
         :param h: num of heads 
