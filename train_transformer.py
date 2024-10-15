@@ -61,8 +61,8 @@ def main():
     
     for epoch in range(hp.epochs):
 
-        train_loader = DataLoader(train_dataset, batch_size=hp.batch_size, shuffle=True, collate_fn=collate_fn_transformer, drop_last=True, num_workers=16)
-        test_loader = DataLoader(test_dataset, batch_size=hp.batch_size, shuffle=False, collate_fn=collate_fn_transformer, drop_last=False, num_workers=16)
+        train_loader = DataLoader(train_dataset, batch_size=hp.batch_size, shuffle=True, collate_fn=collate_fn_transformer, drop_last=True, num_workers=4)
+        test_loader = DataLoader(test_dataset, batch_size=hp.batch_size, shuffle=False, collate_fn=collate_fn_transformer, drop_last=False, num_workers=4)
         pbar = tqdm(train_loader)
         epoch_loss = 0
         for i, data in enumerate(pbar):
