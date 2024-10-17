@@ -24,5 +24,15 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
 </ul>
 <h2>Pretrained Model Checkpoints</h2>
 <ul>
-  <li>You can download the pretrained model checkpoints from <a href="https://www.kaggle.com/datasets/swayamshah09/checkpoints-run2">Checkpoints</a></li>
+  <li>You can download the pretrained model checkpoints from <a href="https://www.kaggle.com/datasets/swayamshah09/checkpoints-run2">Checkpoints</a> (50k for Transformer model / 45k for Postnet)</li>
+  <li>You can load the checkpoints for the respective models.</li>
 </ul>
+<h2>Attention Plots</h2>
+<h2>Learning curves & Alphas</h2>
+<h2>Experimental Notes</h2>
+<ol>
+  <li>The <b>learning rate</b> is an important parameter for training. The <b>learning rate</b> is initialised to 1e-3 and the exponential decay doesn't work.</li>
+  <li>I have added <b>Gradient Clipping</b> to the implementation considering it one of the most important parameters for training. I clipped the gradient with norm value 1.</li>
+  <li>I didn't use the <b>stop token</b> in the implementation, since model didn't train with its usage.</li>
+  <li>For <b>Transformer model</b>, it is very important to concatenate the input and context vectors for correctly utilising the Attention mechanism.</li>
+</ol>
