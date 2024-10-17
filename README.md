@@ -62,8 +62,8 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
   <li><code>network.py</code> contains Encoder, MelDecoder, Model and Model Postnet networks.</li>
   <li><code>train_transformer.py</code> contains the script for training the autoregressive attention network. (text --> mel)</li>
   <li><code>Text-to-Speech-Training-Transformer.ipynb</code> is the notebook to be run for training the transformer network.</li>
-  <li><code>Text-to-Speech-Training-Postnet.ipynb</code> is the notebook to be run for training the PostConvolutional network.</li>
   <li><code>train_postnet.py</code> contains the script for training the PostConvolutional network. (mel --> linear)</li>
+  <li><code>Text-to-Speech-Training-Postnet.ipynb</code> is the notebook to be run for training the PostConvolutional network.</li>
   <li><code>synthesis.py</code> contains the script to generate the audio samples by the trained <b>Text-to-Speech</b> model.</li>
   <li><code>utils.py</code> contains the methods for detailed preprocessing particularly for mel spectrogram and audio waveforms.</li>
 </ul>
