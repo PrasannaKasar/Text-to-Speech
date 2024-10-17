@@ -51,7 +51,7 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
 <ul>
   <li>desc of test</li>
 </ul>
-<img src="model/test_loss_per_epoch.png">
+<img src="png/test_loss_per_epoch.png">
 <ul>
   <li>The image below shows the alphas of scaled positional encoding. The encoder alpha is constant for almost first 15k steps and then increases for the rest of the training. The decoder alpha decreases a bit for first 2k steps then it is almost constant for rest of the training.</li>
 </ul>
