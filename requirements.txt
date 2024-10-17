@@ -11,4 +11,3 @@ tensorboardX
 tqdm
 torchvision
 torchaudio
-speechbrain
