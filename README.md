@@ -42,15 +42,22 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
   <li>You can download the pretrained model checkpoints from <a href="https://www.kaggle.com/datasets/swayamshah09/checkpoints-run2">Checkpoints</a> (50k for Transformer model / 45k for Postnet)</li>
   <li>You can load the checkpoints for the respective models.</li>
 </ul>
-<h2>Attention Plots</h2>
+<h2>☢️Attention Plots</h2>
+<ul>
+  <li>desc</li>
+<h3>Self Attention Encoder</h3>
+<img src="png/attention_encoder.gif" height="200">
+<h3>Self Attention Decoder</h3>
+<img src="png/attention_decoder.gif" height="200">
+<h3>Attention Encoder-Decoder</h3>
+<img src="png/
+</ul>
 <h2>📈Learning curves & Alphas</h2>
 <ul>
   <li>I used Noam-style warmup and decay. This refers to a learning rate schedule commonly used in training deep learning models, particularly in the context of Transformer models(as introduced in in the "<a href="https://paperswithcode.com/paper/attention-is-all-you-need">Attention is All You Need</a>" paper)</li>
 </ul>
 <img src="png/training_loss.png">
-<ul>
-  <li>desc of test</li>
-</ul>
+<img src="png/training_loss_per_epoch.png">
 <img src="png/test_loss_per_epoch.png">
 <ul>
   <li>The image below shows the alphas of scaled positional encoding. The encoder alpha is constant for almost first 15k steps and then increases for the rest of the training. The decoder alpha decreases a bit for first 2k steps then it is almost constant for rest of the training.</li>
