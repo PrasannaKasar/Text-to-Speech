@@ -14,5 +14,6 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
 <ul>
   <li>Install python==3.11.10</li>
   <li>Install requirements:</li>
-<pre>pip install -r requirements.txt</pre>
+  <pre>pip install -r requirements.txt</pre>
 </ul>
+
