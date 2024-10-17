@@ -43,7 +43,10 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
   <li>You can load the checkpoints for the respective models.</li>
 </ul>
 <h2>Attention Plots</h2>
-<h2>Learning curves & Alphas</h2>
+<h2>📈Learning curves & Alphas</h2>
+<ul>
+  <li>I used Noam-style warmup and decay. This refers to a learning rate schedule commonly used in training deep learning models, particularly in the context of Transformer models(as introduced in in the "<a href="https://paperswithcode.com/paper/attention-is-all-you-need">Attention is All You Need</a>" paper)</li>
+</ul>
 <h2>🗒Experimental Notes</h2>
 <ol>
   <li>The <b>learning rate</b> is an important parameter for training. The <b>learning rate</b> is initialised to 1e-3 and the exponential decay doesn't work.</li>
