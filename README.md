@@ -5,9 +5,13 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
 <h2>📘Details</h2>
 <ul>
   <li>A Pytorch Implementation of end-to-end Speech Synthesis using Transformer Network.</li>
-  <li>This model can be trained almost 3 to 4 times faster than autoregressive models, since Transformers lie under one of the fast computing non-autoregressive models. The quality of the speech was retrieved.</li>
+  <li>This model can be trained almost 3 to 4 times faster than most of the autoregressive models, since Transformers lie under one of the fastest computing autoregressive models. The quality of the speech was retrieved too.</li>
   <li>I learned the post network using CBHG(Convolutional Bank + Highway network + GRU) model of tacotron and converted the spectrogram into raw wave using griffin-lim algorithm, and in future I want to use pre-trained hifi-gan vocoder for generating raw audio.</li>
 </ul>
+
+<h2>🦾Transformer Architecture</h2>
+<img src="png/model.png">
+
 <h2>⚙️Tech Stack</h2>
 
 | **Category**                | **Technologies**                                                                                       |
@@ -19,15 +23,13 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
 | **Dataset**                 | [![LJSpeech](https://img.shields.io/badge/LJSpeech-4D2A4E?style=for-the-badge&logo=dataset&logoColor=white)](https://www.kaggle.com/datasets/mathurinache/the-lj-speech-dataset)                                                                            |
 | **Tools**                   | [![Git](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/) [![Google Colab](https://img.shields.io/badge/google%20colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)](https://colab.research.google.com/) [![Kaggle](https://img.shields.io/badge/kaggle-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white)](https://www.kaggle.com/)                            |
 | **Visualization & Analysis**| [![Matplotlib](https://img.shields.io/badge/matplotlib-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://matplotlib.org/)                 |
-
-<h2>🦾Transformer Architecture</h2>
-<img src="png/model.png">
+<h2>📁File Structure</h2>
 <h2>📝Requirements</h2>
 <ul>
   <li>Install python==3.11.10</li>
   <li>Install requirements:</li>
 </ul>
-<pre>pip install -r requirements.txt</pre>
+<pre><code>pip install -r requirements.txt</code></pre>
 <h2>📊Data</h2>
 <ul>
   <li>I used The LJSpeech Dataset (aka LJSpeech-1.1), a speech dataset which consists of pairs of text script and short audio(wavs) clips of a single speaker. The complete dataset (13,100 pairs) can be downloaded either from <a href="https://www.kaggle.com/datasets/mathurinache/the-lj-speech-dataset" target="_blank">Kaggle</a> or <a href="https://keithito.com/LJ-Speech-Dataset/">Keithito</a>
@@ -48,3 +50,15 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
   <li>I didn't use the <b>stop token</b> in the implementation, since model didn't train with its usage.</li>
   <li>For <b>Transformer model</b>, it is very important to concatenate the input and context vectors for correctly utilising the Attention mechanism.</li>
 </ol>
+<h2>🔊Generated Samples</h2>
+<h2>📋File Description</h2>
+<ul>
+  <li><code>hyperparams.py</code> contains all the hyperparams that are required in this Project.</li>
+  <li><code>prepare_data.py</code> performs preparing of data which is converting raw audio to mel, linear spectrogram for faster training time. The scripts for preprocessing of text data is in <code>./text/</code> directory.</li>
+  <li><code>preprocess.py</code> contains all the methods for loading the dataset.</li>
+  <li><code>module.py</code> contains all the methods like Encoder Prenet, Feed Forward Network(FFN), PostConvolutional Network, MultiHeadAttention, Attention, Prenet, CBHG(Convolutional Bank + Highway + Gated), etc.</li>
+  <li><code>network.py</code> contains Encoder, MelDecoder, Model and Model Postnet networks.</li>
+  <li><code>train_transformer.py</code> contains the script for training the autoregressive attention network. (text --> mel)</li>
+  <li><code>train_postnet.py</code> contains the script for training the PostConvolutional network. (mel --> linear)</li>
+  <li><code>synthesis.py</code> contains the script to generate the audio samples by the trained <b>Text-to-Speech</b> model.</li>
+</ul>
