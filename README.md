@@ -47,6 +47,15 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
 <ul>
   <li>I used Noam-style warmup and decay. This refers to a learning rate schedule commonly used in training deep learning models, particularly in the context of Transformer models(as introduced in in the "<a href="https://paperswithcode.com/paper/attention-is-all-you-need">Attention is All You Need</a>" paper)</li>
 </ul>
+<img src="png/training_loss.png">
+<ul>
+  <li>desc of test</li>
+</ul>
+<img src="model/test_loss_per_epoch.png">
+<ul>
+  <li>The image below shows the alphas of scaled positional encoding. The encoder alpha is constant for almost first 15k steps and then increases for the rest of the training. The decoder alpha decreases a bit for first 2k steps then it is almost constant for rest of the training.</li>
+</ul>
+<img src="png/alphas.png">
 <h2>🗒Experimental Notes</h2>
 <ol>
   <li>The <b>learning rate</b> is an important parameter for training. The <b>learning rate</b> is initialised to 1e-3 and the exponential decay doesn't work.</li>
