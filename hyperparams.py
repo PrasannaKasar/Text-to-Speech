@@ -15,7 +15,7 @@ power = 1.2 # Exponent for amplifying the predicted magnitude
 min_level_db = -100
 ref_level_db = 20
 hidden_size = 256
-embedding_size = 256
+embedding_size = 512
 max_db = 100
 ref_db = 20
     
