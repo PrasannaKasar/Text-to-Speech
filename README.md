@@ -45,7 +45,7 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
 <h2>☢️Attention Plots</h2>
 <ul>
   <li>Attention Plots represent the multihead attention of all layers, num_heads=4 is used for three attention layers.</li>
-  <li>Only a few multiheads showed diagonal alignment i.e. Diagonal alignment in attention plots typically suggests that the model is learning to align tokens in a sequence effectively).</li>
+  <li>Only a few multiheads showed diagonal alignment i.e. Diagonal alignment in attention plots typically suggests that the model is learning to align tokens in a sequence effectively.</li>
 </ul>
 <h3>Self Attention Encoder</h3>
 <img src="png/attention_encoder.gif" height="200">
