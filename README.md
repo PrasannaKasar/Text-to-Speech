@@ -1,35 +1,47 @@
-# **Text-to-Speech**
-<h2>Aim</h2>
+# **Text-to-Speech<br>▶• ılıılıılıılıılıılı**
+<h2>🎯Aim</h2>
 To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that efficiently converts textual input into natural, high-quality speech output. The model aims to leverage the self-attention mechanism to capture long-range dependencies in text sequences, enabling more accurate prosody, intonation, and contextual understanding compared to traditional models. The goal is to create a system that can generalize well across various languages and speaking styles, ensuring smooth, realistic voice synthesis with minimal preprocessing and training time.
 
-<h2>Details</h2>
+<h2>📘Details</h2>
 <ul>
   <li>A Pytorch Implementation of end-to-end Speech Synthesis using Transformer Network.</li>
   <li>This model can be trained almost 3 to 4 times faster than autoregressive models, since Transformers lie under one of the fast computing non-autoregressive models. The quality of the speech was retrieved.</li>
   <li>I learned the post network using CBHG(Convolutional Bank + Highway network + GRU) model of tacotron and converted the spectrogram into raw wave using griffin-lim algorithm, and in future I want to use pre-trained hifi-gan vocoder for generating raw audio.</li>
 </ul>
-<h2>Transformer Architecture</h2>
+<h2>⚙️Tech Stack</h2>
+
+| **Category**                | **Technologies**                                                                                       |
+|-----------------------------|----------------------------------------------------------------------------------------------------|
+| **Programming Languages**   | [![Python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)              |
+| **Frameworks**              | [![PyTorch](https://img.shields.io/badge/pytorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/) |
+| **Libraries**               | [![inflect](https://img.shields.io/badge/inflect-FFD43B?style=for-the-badge&logo=python&logoColor=white)](https://pypi.org/project/inflect/) [![librosa](https://img.shields.io/badge/librosa-FF6F00?style=for-the-badge&logo=python&logoColor=white)](https://librosa.org/) [![scipy](https://img.shields.io/badge/scipy-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white)](https://scipy.org/) [![Unidecode](https://img.shields.io/badge/unidecode-4A4A4A?style=for-the-badge&logo=python&logoColor=white)](https://pypi.org/project/Unidecode/) [![pandas](https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/) [![tqdm](https://img.shields.io/badge/tqdm-4A4A4A?style=for-the-badge&logo=python&logoColor=white)](https://tqdm.github.io/) [![torchvision](https://img.shields.io/badge/torchvision-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/vision/stable/index.html) [![torchaudio](https://img.shields.io/badge/torchaudio-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/audio/stable/index.html) |
+| **Deep Learning Models**    | [![Transformers](https://img.shields.io/badge/Transformers-FF6F00?style=for-the-badge&logo=huggingface&logoColor=white)](https://huggingface.co/transformers) [![CBHG](https://img.shields.io/badge/CBHG-0A192E?style=for-the-badge&logo=neuralnetworks&logoColor=white)](https://www.isca-speech.org/archive/Interspeech_2016/pdfs/0214.PDF) |
+| **Dataset**                 | [![LJSpeech](https://img.shields.io/badge/LJSpeech-4D2A4E?style=for-the-badge&logo=dataset&logoColor=white)](https://www.kaggle.com/datasets/mathurinache/the-lj-speech-dataset)                                                                            |
+| **Tools**                   | [![Git](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/) [![Google Colab](https://img.shields.io/badge/google%20colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)](https://colab.research.google.com/) [![Kaggle](https://img.shields.io/badge/kaggle-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white)](https://www.kaggle.com/)                            |
+| **Visualization & Analysis**| [![Matplotlib](https://img.shields.io/badge/matplotlib-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://matplotlib.org/)                 |
+
+<h2>🦾Transformer Architecture</h2>
 <img src="png/model.png">
-<h2>Requirements</h2>
+<h2>📝Requirements</h2>
 <ul>
   <li>Install python==3.11.10</li>
   <li>Install requirements:</li>
 </ul>
 <pre>pip install -r requirements.txt</pre>
-<h2>Data</h2>
+<h2>📊Data</h2>
 <ul>
   <li>I used The LJSpeech Dataset (aka LJSpeech-1.1), a speech dataset which consists of pairs of text script and short audio(wavs) clips of a single speaker. The complete dataset (13,100 pairs) can be downloaded either from <a href="https://www.kaggle.com/datasets/mathurinache/the-lj-speech-dataset" target="_blank">Kaggle</a> or <a href="https://keithito.com/LJ-Speech-Dataset/">Keithito</a>
 .</li>
   <li>This is the raw data which will be prepared further for training.</li>
 </ul>
-<h2>Pretrained Model Checkpoints</h2>
+<h2>✅Pretrained Model Checkpoints</h2>
 <ul>
   <li>You can download the pretrained model checkpoints from <a href="https://www.kaggle.com/datasets/swayamshah09/checkpoints-run2">Checkpoints</a> (50k for Transformer model / 45k for Postnet)</li>
   <li>You can load the checkpoints for the respective models.</li>
 </ul>
 <h2>Attention Plots</h2>
 <h2>Learning curves & Alphas</h2>
-<h2>Experimental Notes</h2>
+<h2>🗒Experimental Notes</h2>
 <ol>
   <li>The <b>learning rate</b> is an important parameter for training. The <b>learning rate</b> is initialised to 1e-3 and the exponential decay doesn't work.</li>
   <li>I have added <b>Gradient Clipping</b> to the implementation considering it one of the most important parameters for training. I clipped the gradient with norm value 1.</li>
