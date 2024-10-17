@@ -11,24 +11,12 @@ import argparse
 
 # Updated function to take checkpoint_path as input
 def load_checkpoint(checkpoint_path):
-    # Load the state dict from the checkpoint
     state_dict = torch.load(checkpoint_path)
     new_state_dict = OrderedDict()
-
-    # Iterate through the model's state_dict
+    
     for k, value in state_dict['model'].items():
-        # Remove the "module." prefix if it exists
-        if k.startswith("module."):
-            k = k[7:]
-        
-        # Apply key replacements
-        k = (k.replace("positional_embedding", "pos_emb")
-               .replace("feed_forward_networks", "ffns")
-               .replace("self_attention_layers", "selfattn_layers")
-               .replace("dot_product_attention_layers", "dotattn_layers"))
-        
-        # Add the updated key and value to the new state dict
-        new_state_dict[k] = value
+        key = k[7:]  # Remove the "module." prefix
+        new_state_dict[key] = value
 
     return new_state_dict
     
