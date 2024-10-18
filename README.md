@@ -39,7 +39,7 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
 </ul>
 <h2>✅Pretrained Model Checkpoints</h2>
 <ul>
-  <li>You can download the pretrained model checkpoints from <a href="https://www.kaggle.com/datasets/swayamshah09/checkpoints-run2">Checkpoints</a> (50k for Transformer model / 45k for Postnet)</li>
+  <li>You can download the pretrained model checkpoints from <a href="https://www.kaggle.com/datasets/swayamshah09/trained-model-checkpoints">Checkpoints</a> (50k for Transformer model / 45k for Postnet)</li>
   <li>You can load the checkpoints for the respective models.</li>
 </ul>
 <h2>☢️Attention Plots</h2>
@@ -95,9 +95,9 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
   <ul>
     <li>STEP 1. Download and extract LJSpeech-1.1 data at any directory you want.</li>
     <li>STEP 2. Change these two paths in <code>hyperparams.py</code> according to your system paths for preparing data locally.<br><br><pre><code># For local use: (prepare_data.ipynb)<br>
-data_path_used_for_prepare_data = 'path\to\your\LJSpeech-1.1'<br>
-output_path_used_for_prepare_data = 'path\to\your\LJSpeech-1.1'</code></pre></li>
-    <li>STEP 3. Run the <code>prepare_data.ipynb</code> after correctly assigning paths.</li>
+data_path_used_for_prepare_data = 'your\path\to\LJSpeech-1.1'<br>
+output_path_used_for_prepare_data = 'your\path\to\LJSpeech-1.1'</code></pre></li>
+    <li>STEP 3. Run the <code>prepare_data.ipynb</code> after correctly assigning the paths.</li>
     <li>STEP 4. The prepared data will be stored in the form: </li><br>
   <pre><code>LJSpeech-1.1/
 │
@@ -111,6 +111,22 @@ output_path_used_for_prepare_data = 'path\to\your\LJSpeech-1.1'</code></pre></li
 │   ├── LJ001-002.mag.npy
 │   ├── LJ001-002.pt.npy
 │   └── ...</code></pre>
-<li><a href="https://www.kaggle.com/datasets/swayamshah09/mel-mag-prepared-data">Prepared data</a> is already uploaded to kaggle datasets for saving time.</li>
+<li><a href="https://www.kaggle.com/datasets/swayamshah09/mel-mag-prepared-data">Prepared data</a> is uploaded to kaggle datasets for direct use.</li>
+  </ul>
+  <h3><li>Training Transformer</li></h3>
+  <ul>
+    <li>STEP 1. For Training Transformer adjust these paths in <code>hyperparams.py</code>.<br><br>
+    <pre><code># General:
+data_path = 'your\path\to\LJSpeech-1.1'
+checkpoint_path = 'your\path\to\outputdir'</code></pre></li>
+    <li>STEP 2. Run the <code>Text-to-Speech-Training-Transformer.ipynb</code> after correctly assigning the paths.</li>
+  </ul>
+  <h3><li>Training Postnet</li></h3>
+  <ul>
+    <li>STEP 1. For Training Posnet adjust these paths in <code>hyperparams.py</code>.<br><br>
+    <pre><code># General:
+data_path = 'your\path\to\LJSpeech-1.1'
+checkpoint_path = 'your\path\to\outputdir'</code></pre></li>
+    <li>STEP 2. Run the <code>Text-to-Speech-Training-Postnet.ipynb</code> after correctly assigning the paths.</li>
   </ul>
 </ol>
