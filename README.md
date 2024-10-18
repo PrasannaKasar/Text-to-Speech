@@ -6,7 +6,7 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
 <ul>
   <li>A Pytorch Implementation of end-to-end Speech Synthesis using Transformer Network.</li>
   <li>This model can be trained almost 3 to 4 times faster than most of the autoregressive models, since Transformers lie under one of the fastest computing autoregressive models.</li>
-  <li>I learned the post network using CBHG(Convolutional Bank + Highway network + GRU) model of tacotron and converted the spectrogram into raw wave using griffin-lim algorithm, and in future I want to use pre-trained hifi-gan vocoder for generating raw audio.</li>
+  <li>We learned the post network using CBHG(Convolutional Bank + Highway network + GRU) model of tacotron and converted the spectrogram into raw wave using griffin-lim algorithm, and in future We want to use pre-trained hifi-gan vocoder for generating raw audio.</li>
 </ul>
 
 <h2>🦾Transformer Architecture</h2>
