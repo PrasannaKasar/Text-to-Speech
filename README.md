@@ -111,6 +111,14 @@ Text-to-Speech/
   <li>For <b>Transformer model</b>, it is very important to concatenate the input and context vectors for correctly utilising the Attention mechanism.</li>
 </ol>
 <h2>🔊Generated Samples</h2>
+<ul>
+  <h2>Text:</h2><code>Good Morning, Everyone!!</code>
+  <h2>Audio:</h2>
+<audio controls>
+  <source src="path-to-your-audio-file.wav" type="audio/wav">
+  Your browser does not support the audio element.
+</audio>
+</ul>
 <h2>📋File Description</h2>
 <ul>
   <li><code>hyperparams.py</code> contains all the hyperparams that are required in this Project.</li>
