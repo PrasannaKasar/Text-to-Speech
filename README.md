@@ -25,6 +25,47 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
 | **Visualization & Analysis**| [![Matplotlib](https://img.shields.io/badge/matplotlib-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://matplotlib.org/)                 |
 
 <h2>📁File Structure</h2>
+<pre><code>
+Text-to-Speech/
+│
+├── README.md
+├── Text-to-Speech-Audio-Generation.ipynb
+├── Text-to-Speech-Training-Postnet.ipynb
+├── Text-to-Speech-Training-Transformer.ipynb
+├── hyperparams.py
+├── module.py
+├── network.py
+├── prepare_data.ipynb
+├── prepare_data.py
+├── preprocess.py
+├── requirements.txt
+├── synthesis.py
+├── train_postnet.py
+├── train_transformer.py
+├── utils.py
+│
+├── __pycache__/
+│   ├── hyperparams.cpython-311.pyc
+│   └── utils.cpython-311.pyc
+│
+├── png/
+│   ├── alphas.png
+│   ├── attention.gif
+│   ├── attention_encoder.gif
+│   ├── attention_decoder.gif
+│   ├── model.png
+│   ├── test_loss_per_epoch.png
+│   ├── training_loss.png
+│   └── training_loss_per_epoch.png
+│
+└── text/
+    ├── __init__.py
+    ├── cleaners.py
+    ├── cmudict.py
+    ├── numbers.py
+    └── symbols.py
+
+</code></pre>
 <h2>📝Requirements</h2>
 <ul>
   <li>Install python==3.11.10</li>
