@@ -115,7 +115,7 @@ Text-to-Speech/
   <h2>Text:</h2><code>Good Morning, Everyone!!</code>
   <h2>Audio:</h2>
 <audio controls>
-  <source src="path-to-your-audio-file.wav" type="audio/wav">
+  <source src="png/goodmorning.wav" type="audio/wav">
   Your browser does not support the audio element.
 </audio>
 </ul>
