@@ -191,3 +191,9 @@ checkpoint_path = 'your\path\to\outputdir'</code></pre></li>
 --max_len 400 
 --text "Your Text Input"</code></pre></li>
 </ul>
+<h2>🤝Acknowledgements</h2>
+<ul>
+  <li>We are grateful to <a href="https://github.com/CommunityOfCoders"</li>CoC VJTI</a> and the <a href="https://github.com/ProjectX-VJTI">Project X</a> programme.
+  <li>Special thanks to our mentor <a href="https://github.com/DeadSpheroid">Warren Jacinto</a> for perfectly mentoring and supporting us throughout.</li>
+  <li>Additionally, we are also thankful for all the Project X mentors for their inputs and advice on our project.</li>
+</ul>
