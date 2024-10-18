@@ -24,8 +24,8 @@ def synthesis(text, args):
     MODEL = Model()
     MODEL_post = ModelPostNet()
     # Load checkpoints using the paths provided via command line arguments
-    MODEL.load_state_dict(load_checkpoint(args.transformer_checkpoint), strict=False)
-    MODEL_post.load_state_dict(load_checkpoint(args.postnet_checkpoint), strict=False)
+    MODEL.load_state_dict(load_checkpoint(args.transformer_checkpoint))
+    MODEL_post.load_state_dict(load_checkpoint(args.postnet_checkpoint))
     
     text = np.asarray(text_to_sequence(text, [hp.cleaners]))
     text = torch.LongTensor(text).unsqueeze(0)
