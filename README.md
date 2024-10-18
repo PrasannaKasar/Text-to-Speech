@@ -112,12 +112,15 @@ Text-to-Speech/
 </ol>
 <h2>🔊Generated Samples</h2>
 <ul>
-  <h2>Text:</h2><code>Good Morning, Everyone!!</code>
-  <h2>Audio:</h2>
-<audio controls>
-  <source src="png/goodmorning.wav" type="audio/wav">
-  Your browser does not support the audio element.
-</audio>
+  <h3>Text:</h3><code>Good Morning, Everyone!!</code>
+  <h3>Audio:</h3>
+  <code><a href="https://drive.google.com/drive/folders/11921QUrDjqurlEgiin6uGF5rFrm4xpB2?usp=sharing">goodmorning.wav</a></code>
+  <h3>Text:</h3><code>She sells seashells on the seashore.</code>
+  <h3>Audio:</h3>
+  <code><a href="https://drive.google.com/drive/folders/1wQaX_QTCcww7HnSfHEvUnbKMmDPV7Aqy?usp=sharing">seashells.wav</a></code>
+  <h3>Text:</h3><code>Thank you so much Warren for all your support.</code>
+  <h3>Audio:</h3>
+  <code><a href="https://drive.google.com/drive/folders/1RlOwNByC4FK8GGePeXzjsfzy8vm8-36C?usp=sharing">tywarren.wav</a></code>
 </ul>
 <h2>📋File Description</h2>
 <ul>
