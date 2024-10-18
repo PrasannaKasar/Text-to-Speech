@@ -130,3 +130,14 @@ checkpoint_path = 'your\path\to\outputdir'</code></pre></li>
     <li>STEP 2. Run the <code>Text-to-Speech-Training-Postnet.ipynb</code> after correctly assigning the paths.</li>
   </ul>
 </ol>
+
+<h2>📻Generate Audio Samples</h2>
+<ul type="circle">
+<li>STEP 1. Change the audio sample output path in <code>hyperparams.py</code><br><br>
+<pre><code>sample_path = 'your\path\to\outputdir\of\samples'</code></pre>
+</li>
+<li>STEP 2. Run the <code>Text-to-Speech-Audio-Generation.ipynb</code> but make sure to run with correct arguments:<br><br><pre><code>--transformer_checkpoint your\path\to\checkpoint_transformer_50000.pth.tar 
+--postnet_checkpoint your\path\to\checkpoint_postnet_45000.pth.tar 
+--max_len 400 
+--text "Your Text Input"</code></pre></li>
+</ul>
