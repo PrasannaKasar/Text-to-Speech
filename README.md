@@ -85,5 +85,32 @@ To develop a robust end-to-end Transformer-based Text-to-Speech (TTS) model that
   <li><code>train_postnet.py</code> contains the script for training the PostConvolutional network. (mel --> linear)</li>
   <li><code>Text-to-Speech-Training-Postnet.ipynb</code> is the notebook to be run for training the PostConvolutional network.</li>
   <li><code>synthesis.py</code> contains the script to generate the audio samples by the trained <b>Text-to-Speech</b> model.</li>
+  <li><code>Text-to-Speech-Audio-Generation.ipynb</code> is the notebook to be run for generating audio samples by loading trained model checkpoints</li>
   <li><code>utils.py</code> contains the methods for detailed preprocessing particularly for mel spectrogram and audio waveforms.</li>
 </ul>
+
+<h2>🤖Training the Network</h2>
+<ol>
+  <h3><li>Preparing Data</li></h3>
+  <ul>
+    <li>STEP 1. Download and extract LJSpeech-1.1 data at any directory you want.</li>
+    <li>STEP 2. Change these two paths in <code>hyperparams.py</code> according to your system paths for preparing data locally.<br><br><pre><code># For local use: (prepare_data.ipynb)<br>
+data_path_used_for_prepare_data = 'path\to\your\LJSpeech-1.1'<br>
+output_path_used_for_prepare_data = 'path\to\your\LJSpeech-1.1'</code></pre></li>
+    <li>STEP 3. Run the <code>prepare_data.ipynb</code> after correctly assigning paths.</li>
+    <li>STEP 4. The prepared data will be stored in the form: </li><br>
+  <pre><code>LJSpeech-1.1/
+│
+├── README.md
+├── metadata.csv
+├── wavs/
+│   ├── LJ001-001.wav
+│   ├── LJ001-001.mag.npy
+│   ├── LJ001-001.pt.npy
+│   ├── LJ001-002.wav
+│   ├── LJ001-002.mag.npy
+│   ├── LJ001-002.pt.npy
+│   └── ...</code></pre>
+<li><a href="https://www.kaggle.com/datasets/swayamshah09/mel-mag-prepared-data">Prepared data</a> is already uploaded to kaggle datasets for saving time.</li>
+  </ul>
+</ol>
