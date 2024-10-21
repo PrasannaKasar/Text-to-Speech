@@ -197,3 +197,6 @@ checkpoint_path = 'your\path\to\outputdir'</code></pre></li>
   <li>Special thanks to our mentor <a href="https://github.com/DeadSpheroid">Warren Jacinto</a> for perfectly mentoring and supporting us throughout.</li>
   <li>Additionally, we are also thankful for all the Project X mentors for their inputs and advice on our project.</li>
 </ul>
+<div align="center">
+  <img src="https://komarev.com/ghpvc/?username=PrasannaKasar&repo=Text-to-Speech&style=for-the-badge&color=blue" alt="GitHub view counter"/>
+</div>
